@@ -30,11 +30,12 @@ clear meshwarpmex
 % Loading Camera Parameters 
 load(['mat/camera_param_shake2.mat'], 'cam_param');
 
+% focal length 
 fl = cam_param(1);
 td = cam_param(2);
 ts = cam_param(3);
 
-
+% the forth element is time stamps of Gyro
 g = gyro(:,1:3);
 
 sigma2 = 4000;
@@ -45,6 +46,7 @@ gauss = gauss ./ sum(gauss);
 g(:,1) = g(:,1) - conv(gyro(:,1), gauss, 'same');
 g(:,2) = g(:,2) - conv(gyro(:,2), gauss, 'same');
 g(:,3) = g(:,3) - conv(gyro(:,3), gauss, 'same');
+% Difference Gyro Samples
 dgt = diff(gyro(:,4));
 theta = ((g(1:end-1,:) + g(2:end,:)) / 2) .* dgt(:,[1 1 1]);
 theta = [0 0 0; cumsum(theta, 1)];

@@ -15,7 +15,6 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 function nw = resample_rotation_rate(w, old_time, new_time)
-
 dT = old_time(2:end) - old_time(1:end-1);
 theta = cumsum( w(2:end) .* dT );
 

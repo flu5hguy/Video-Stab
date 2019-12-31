@@ -27,8 +27,10 @@ typedef vec<double,3> vec3;
 typedef mat<double,3,3> mat3;
 
 template <typename T>
-vec<T,2> Vec(T x, T y) { vec<T,2> v = {x, y}; return v; }
-
+vec<T,2> Vec(T x, T y) { 
+    vec<T,2> v = {x, y}; return v; 
+    }
+ 
 struct CameraParams {
     double f;
     double td;
@@ -37,6 +39,7 @@ struct CameraParams {
 };
 
 // start is used to begin search from where we last finished.
+// Linear Interpolation 
 vec3 interp(double* tx, vec3* x, double ty, int num, int& start)
 {
     int i = start;
@@ -58,14 +61,15 @@ vec3 interp(double* tx, vec3* x, double ty, int num, int& start)
     mxAssert(0 <= dy && dy <= dt, "");
     
     return x[i] * (1-w) + x[i+1] * w;
-}
+} 
 
 mat3 getW(const vec3& theta, double w, double h, double f)
 {
+    // Intrinsic Parameters
     mat3 K = {1, 0, -w/2,
               0, 1, -h/2,
               0, 0, f};
-              
+    // Invert of Intrinsic Parameters
     mat3 invK = {1, 0, w/(2*f),
                  0, 1, h/(2*f),
                  0, 0, 1/f};
