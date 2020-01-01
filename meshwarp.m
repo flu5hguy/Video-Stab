@@ -17,7 +17,7 @@
 function warped = meshwarp(image, dth, theta, gyro_time, frame_time, td, ts, f)
 
 ft = linspace(frame_time + td - ts/2, frame_time + td + ts/2, 20);
- q
+ 
 th = interp1(gyro_time, theta, ft, 'linear', 'extrap');
 thm = interp1(gyro_time - td, theta, frame_time, 'linear', 'extrap');
 th = th - thm(ones(size(th,1),1),:);
